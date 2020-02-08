@@ -110,6 +110,9 @@ fn check_vec() {
     assert!(vec1.is_same(&vec2));
     vec2.swap(1, 2);
     assert!(vec1.is_not_same(&vec2));
+    let arr2: &[u8] = &[1, 2, 3];
+    assert!(arr2.is_same(&vec1));
+    assert!(vec1.is_same(&arr2));
 }
 
 #[test]

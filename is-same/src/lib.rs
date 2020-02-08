@@ -57,11 +57,13 @@ impl<T> IsSame for Arc<T> {
     }
 }
 
-impl<T> IsSame for Vec<T>
+impl<T, Rhs> IsSame<Rhs> for Vec<T>
 where
     T: IsSame,
+    Rhs: AsRef<[T]>,
 {
-    fn is_same(&self, other: &Self) -> bool {
+    fn is_same(&self, other: &Rhs) -> bool {
+        let other = other.as_ref();
         if self.as_ptr() == other.as_ptr() {
             true
         } else if self.len() != other.len() {
