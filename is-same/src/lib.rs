@@ -182,6 +182,24 @@ where
     }
 }
 
+impl<'a, T> IsSame for [T]
+where
+    T: IsSame + 'a,
+{
+    fn is_same(&self, other: &Self) -> bool {
+        if self.len() != other.len() {
+            false
+        } else {
+            for i in 0..self.len() {
+                if self[i].is_not_same(&other[i]) {
+                    return false;
+                }
+            }
+            true
+        }
+    }
+}
+
 macro_rules! simple_impl {
     ($name:ty) => {
         impl IsSame for $name {

@@ -140,6 +140,18 @@ fn check_arrays() {
 }
 
 #[test]
+fn check_slices() {
+    let arr1: &[u8] = &[1, 2, 3];
+    let arr2: &[u8] = &[1, 2, 3];
+    assert!(arr1.is_same(&arr2));
+    let arr2: &[u8] = &[1, 2, 2];
+    assert!(arr1.is_not_same(&arr2));
+    let arr2: &[u8] = &[1, 2, 3, 4];
+    assert!(arr1.is_not_same(&arr2));
+    assert!(arr2.is_not_same(&arr1));
+}
+
+#[test]
 fn check_tuples() {
     let t1 = (1, 2, "baz");
     let t2 = (1, 2, "baz");
