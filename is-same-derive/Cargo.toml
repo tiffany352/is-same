@@ -3,6 +3,9 @@ name = "is-same-derive"
 version = "0.1.0"
 authors = ["Tiffany Bennett <tiffnixen@gmail.com>"]
 edition = "2018"
+description = "Derive proc macro for the is-same crate"
+repository = "https://github.com/tiffany352/is-same"
+license = "MIT/Apache-2.0"
 
 [lib]
 proc-macro = true

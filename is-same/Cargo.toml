@@ -3,3 +3,7 @@ name = "is-same"
 version = "0.1.0"
 authors = ["Tiffany Bennett <tiffnixen@gmail.com>"]
 edition = "2018"
+description = "A trait for comparing object equality."
+repository = "https://github.com/tiffany352/is-same"
+keywords = ["object", "same", "referential", "equality"]
+license = "MIT/Apache-2.0"
