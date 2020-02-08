@@ -1,6 +1,6 @@
 # is-same
 
-[![Crates.io](https://img.shields.io/crates/v/is-same)](https://crates.io/is-same)
+[![Crates.io](https://img.shields.io/crates/v/is-same)](https://crates.io/crates/is-same)
 ![License: MIT/Apache-2.0](https://img.shields.io/crates/l/is-same)
 
 is-same is a crate that exposes one trait: IsSame. The trait is similar
