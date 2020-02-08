@@ -2,6 +2,7 @@
 
 [![Crates.io](https://img.shields.io/crates/v/is-same)](https://crates.io/crates/is-same)
 ![License: MIT/Apache-2.0](https://img.shields.io/crates/l/is-same)
+![build](https://github.com/tiffany352/is-same/workflows/build/badge.svg)
 [![Coverage Status](https://img.shields.io/codecov/c/github/tiffany352/is-same)](https://codecov.io/gh/tiffany352/is-same)
 
 is-same is a crate that exposes one trait: IsSame. The trait is similar
