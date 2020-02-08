@@ -18,6 +18,16 @@ fn check_floats() {
 }
 
 #[test]
+fn check_refs() {
+    let ref1 = "foo";
+    let ref2 = "bar";
+    assert!(ref1.is_same(&ref1));
+    assert!(ref1.is_not_same(&ref2));
+    let ref2 = "foo";
+    assert!(ref1.is_same(&ref2));
+}
+
+#[test]
 fn check_btree_map() {
     use std::collections::BTreeMap;
 

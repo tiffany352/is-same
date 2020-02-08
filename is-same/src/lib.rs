@@ -153,12 +153,6 @@ where
     }
 }
 
-impl<'a> IsSame for &'a str {
-    fn is_same(&self, other: &Self) -> bool {
-        self == other
-    }
-}
-
 impl IsSame for f32 {
     fn is_same(&self, other: &Self) -> bool {
         self.to_bits() == other.to_bits()
@@ -168,6 +162,19 @@ impl IsSame for f32 {
 impl IsSame for f64 {
     fn is_same(&self, other: &Self) -> bool {
         self.to_bits() == other.to_bits()
+    }
+}
+
+impl<'a, T> IsSame for &'a T
+where
+    T: IsSame + ?Sized + 'a,
+{
+    fn is_same(&self, other: &Self) -> bool {
+        if (*self as *const T) == (*other as *const T) {
+            true
+        } else {
+            (*self).is_same(other)
+        }
     }
 }
 
@@ -197,6 +204,7 @@ simple_impl!(bool);
 simple_impl!(char);
 simple_impl!(());
 simple_impl!(String);
+simple_impl!(str);
 
 macro_rules! tuple_impl {
     ($($tyname:ident, $left:ident, $right:ident;)+) => {
