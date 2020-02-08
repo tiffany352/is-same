@@ -24,6 +24,7 @@
 #![deny(clippy::all)]
 
 use std::any::TypeId;
+use std::borrow::Cow;
 use std::collections::{BTreeMap, BTreeSet, HashMap, HashSet};
 use std::hash::{BuildHasher, Hash};
 use std::rc::Rc;
@@ -179,6 +180,24 @@ where
         } else {
             (*self).is_same(other)
         }
+    }
+}
+
+impl<'a, T> IsSame for Cow<'a, T>
+where
+    T: IsSame + Clone,
+{
+    fn is_same(&self, other: &Self) -> bool {
+        (**self).is_same(&**other)
+    }
+}
+
+impl<'a, T> IsSame<str> for Cow<'a, T>
+where
+    T: IsSame<str> + Clone,
+{
+    fn is_same(&self, other: &str) -> bool {
+        (**self).is_same(other)
     }
 }
 

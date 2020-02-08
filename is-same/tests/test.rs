@@ -152,6 +152,32 @@ fn check_slices() {
 }
 
 #[test]
+fn check_cow() {
+    use std::borrow::Cow;
+
+    let cow1: Cow<'_, str> = "foo".into();
+    let cow2: Cow<'_, str> = "bar".into();
+    assert!(cow1.is_not_same(&cow2));
+    assert!(cow1.is_same("foo"));
+    assert!("foo".is_same(&cow1));
+    let cow2 = cow2.to_owned();
+    assert!(cow1.is_not_same(&cow2));
+    assert!(cow2.is_same("bar"));
+    assert!("bar".is_same(&cow2));
+    let cow2 = cow1.to_owned();
+    assert!(cow1.is_same(&cow2));
+
+    let arr: &[u8] = &[1, 2, 3];
+    let cow1: Cow<'_, [u8]> = arr.into();
+    let cow2 = cow1.to_owned();
+    assert!(cow1.is_same(&arr));
+    assert!(arr.is_same(&cow1));
+    assert!(cow2.is_same(&arr));
+    assert!(arr.is_same(&cow2));
+    assert!(cow1.is_same(&cow2));
+}
+
+#[test]
 fn check_tuples() {
     let t1 = (1, 2, "baz");
     let t2 = (1, 2, "baz");
