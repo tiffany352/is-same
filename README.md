@@ -2,7 +2,7 @@
 
 [![Crates.io](https://img.shields.io/crates/v/is-same)](https://crates.io/crates/is-same)
 ![License: MIT/Apache-2.0](https://img.shields.io/crates/l/is-same)
-[![Coverage Status](https://coveralls.io/repos/github/tiffany352/is-same/badge.svg?branch=master)](https://coveralls.io/github/tiffany352/is-same?branch=master)
+[![Coverage Status](https://img.shields.io/codecov/c/github/tiffany352/is-same)](https://codecov.io/gh/tiffany352/is-same)
 
 is-same is a crate that exposes one trait: IsSame. The trait is similar
 to PartialEq, but is designed for the usecase of diffing information
