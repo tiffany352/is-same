@@ -76,6 +76,10 @@ fn check_hash_map() {
     assert!(map1.is_same(&map2));
     map2.insert("baz", "f");
     assert!(map1.is_not_same(&map2));
+    map1.insert("buzz", "f");
+    // Same number of keys, but not same set of keys
+    assert!(map1.is_not_same(&map2));
+    map1.remove("buzz");
     map2.remove("baz");
     assert!(map1.is_same(&map2));
     map2.insert("bar", "asdf");
