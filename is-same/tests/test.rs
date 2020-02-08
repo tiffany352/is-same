@@ -54,6 +54,42 @@ fn check_btree_set() {
 }
 
 #[test]
+fn check_hash_map() {
+    use std::collections::HashMap;
+
+    let mut map1 = HashMap::new();
+    map1.insert("foo", "bar");
+    map1.insert("bar", "foo");
+    let mut map2 = HashMap::new();
+    map2.insert("bar", "foo");
+    map2.insert("foo", "bar");
+    assert!(map1.is_same(&map2));
+    map2.insert("baz", "f");
+    assert!(map1.is_not_same(&map2));
+    map2.remove("baz");
+    assert!(map1.is_same(&map2));
+    map2.insert("bar", "asdf");
+    assert!(map1.is_not_same(&map2));
+}
+
+#[test]
+fn check_hash_set() {
+    use std::collections::HashSet;
+
+    let mut map1 = HashSet::new();
+    map1.insert("foo");
+    map1.insert("bar");
+    let mut map2 = HashSet::new();
+    map2.insert("bar");
+    map2.insert("foo");
+    assert!(map1.is_same(&map2));
+    map2.insert("baz");
+    assert!(map1.is_not_same(&map2));
+    map2.remove("baz");
+    assert!(map1.is_same(&map2));
+}
+
+#[test]
 fn check_vec() {
     let vec1 = vec![1, 2, 3];
     assert!(vec1.is_same(&vec1));

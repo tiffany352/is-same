@@ -23,7 +23,8 @@
 #![forbid(missing_docs)]
 #![deny(clippy::all)]
 
-use std::collections::{BTreeMap, BTreeSet};
+use std::collections::{BTreeMap, BTreeSet, HashMap, HashSet};
+use std::hash::{BuildHasher, Hash};
 use std::rc::Rc;
 use std::sync::Arc;
 
@@ -111,6 +112,44 @@ where
                 (_, _) => return false,
             }
         }
+    }
+}
+
+impl<Key, Value, State> IsSame for HashMap<Key, Value, State>
+where
+    Key: IsSame + Eq + Hash,
+    Value: IsSame,
+    State: BuildHasher,
+{
+    fn is_same(&self, other: &Self) -> bool {
+        // Both a fast path and required to make sure we don't miss any
+        // keys that exist in `other` but not `self`. Assumes that the
+        // Key type has a non-broken PartialEq implementation, which
+        // could cause two entries to have the same key.
+        if self.len() != other.len() {
+            return false;
+        }
+        for (left_key, left_val) in self {
+            if let Some(right_val) = other.get(left_key) {
+                if left_val.is_not_same(&right_val) {
+                    return false;
+                }
+            } else {
+                return false;
+            }
+        }
+
+        true
+    }
+}
+
+impl<Key, State> IsSame for HashSet<Key, State>
+where
+    Key: IsSame + Eq + Hash,
+    State: BuildHasher,
+{
+    fn is_same(&self, other: &Self) -> bool {
+        self == other
     }
 }
 
