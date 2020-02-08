@@ -23,6 +23,7 @@
 #![forbid(missing_docs)]
 #![deny(clippy::all)]
 
+use std::any::TypeId;
 use std::collections::{BTreeMap, BTreeSet, HashMap, HashSet};
 use std::hash::{BuildHasher, Hash};
 use std::rc::Rc;
@@ -208,6 +209,7 @@ simple_impl!(char);
 simple_impl!(());
 simple_impl!(String);
 simple_impl!(str);
+simple_impl!(TypeId);
 
 macro_rules! tuple_impl {
     ($($tyname:ident, $left:ident, $right:ident;)+) => {

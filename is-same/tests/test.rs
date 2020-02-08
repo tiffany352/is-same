@@ -147,3 +147,14 @@ fn check_tuples() {
     let t2 = (1, 3, "baz");
     assert!(t1.is_not_same(&t2));
 }
+
+#[test]
+fn check_type_id() {
+    use std::any::TypeId;
+
+    let t1 = TypeId::of::<u8>();
+    let t2 = TypeId::of::<u8>();
+    assert!(t1.is_same(&t2));
+    let t2 = TypeId::of::<u16>();
+    assert!(t1.is_not_same(&t2));
+}
