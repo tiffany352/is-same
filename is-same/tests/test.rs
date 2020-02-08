@@ -56,6 +56,7 @@ fn check_btree_set() {
 #[test]
 fn check_vec() {
     let vec1 = vec![1, 2, 3];
+    assert!(vec1.is_same(&vec1));
     let mut vec2 = vec![1, 2];
     assert!(vec1.is_not_same(&vec2));
     assert!(vec2.is_not_same(&vec1));
