@@ -57,6 +57,8 @@ where
     fn is_same(&self, other: &Self) -> bool {
         if self.as_ptr() == other.as_ptr() {
             true
+        } else if self.len() != other.len() {
+            false
         } else {
             self.iter()
                 .zip(other.iter())

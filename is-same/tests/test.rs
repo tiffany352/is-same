@@ -28,3 +28,15 @@ fn check_btree_map() {
     map2.insert("bar", "asdf");
     assert!(map1.is_not_same(&map2));
 }
+
+#[test]
+fn check_vec() {
+    let vec1 = vec![1, 2, 3];
+    let mut vec2 = vec![1, 2];
+    assert!(vec1.is_not_same(&vec2));
+    assert!(vec2.is_not_same(&vec1));
+    vec2.push(3);
+    assert!(vec1.is_same(&vec2));
+    vec2.swap(1, 2);
+    assert!(vec1.is_not_same(&vec2));
+}
