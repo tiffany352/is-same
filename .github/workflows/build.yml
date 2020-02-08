@@ -32,3 +32,6 @@ jobs:
         with:
           name: code-coverage-report
           path: cobertura.xml
+
+      - name: Check formatting
+        run: cargo fmt -- --check
