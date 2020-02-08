@@ -29,12 +29,15 @@ use std::rc::Rc;
 use std::sync::Arc;
 
 /// A trait for comparing two values to see if they are the same.
-pub trait IsSame {
+pub trait IsSame<Rhs = Self>
+where
+    Rhs: ?Sized,
+{
     /// Returns whether two objects are the same.
-    fn is_same(&self, other: &Self) -> bool;
+    fn is_same(&self, other: &Rhs) -> bool;
 
     /// Equivalent to `!self.is_same(other)`.
-    fn is_not_same(&self, other: &Self) -> bool {
+    fn is_not_same(&self, other: &Rhs) -> bool {
         !self.is_same(other)
     }
 }
