@@ -27,6 +27,7 @@ use std::any::TypeId;
 use std::borrow::Cow;
 use std::collections::{BTreeMap, BTreeSet, HashMap, HashSet};
 use std::hash::{BuildHasher, Hash};
+use std::path::{Path, PathBuf};
 use std::rc::Rc;
 use std::sync::Arc;
 
@@ -219,6 +220,24 @@ where
     }
 }
 
+impl<Rhs> IsSame<Rhs> for PathBuf
+where
+    Rhs: AsRef<Path>,
+{
+    fn is_same(&self, other: &Rhs) -> bool {
+        self == other.as_ref()
+    }
+}
+
+impl<Rhs> IsSame<Rhs> for Path
+where
+    Rhs: AsRef<Path>,
+{
+    fn is_same(&self, other: &Rhs) -> bool {
+        self == other.as_ref()
+    }
+}
+
 macro_rules! simple_impl {
     ($name:ty) => {
         impl IsSame for $name {
@@ -247,6 +266,7 @@ simple_impl!(());
 simple_impl!(String);
 simple_impl!(str);
 simple_impl!(TypeId);
+simple_impl!(Path);
 
 macro_rules! tuple_impl {
     ($($tyname:ident, $left:ident, $right:ident;)+) => {

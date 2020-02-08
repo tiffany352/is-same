@@ -196,3 +196,16 @@ fn check_type_id() {
     let t2 = TypeId::of::<u16>();
     assert!(t1.is_not_same(&t2));
 }
+
+#[test]
+fn check_path() {
+    use std::path::{Path, PathBuf};
+
+    let path1 = PathBuf::from(r"/usr/lib/foo.txt");
+    let path2 = PathBuf::from(r"/usr/bin/asdf");
+    assert!(path1.is_not_same(&path2));
+    let path2: &Path = &*path1;
+    assert!(path1.is_same(&path2));
+    assert!(path2.is_same(&path1));
+    assert!(path2.is_same(&path2));
+}
