@@ -22,7 +22,7 @@ is-same-derive = "0.1"
 
 ## Usage
 
-```rs
+```rust
 use is_same::IsSame;
 use is_same_derive::IsSame;
 
