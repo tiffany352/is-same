@@ -1,5 +1,0 @@
-output-type: lcov
-branch: true
-ignore-not-existing: true
-llvm: true
-filter: covered
