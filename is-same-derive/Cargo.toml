@@ -1,0 +1,15 @@
+[package]
+name = "is-same-derive"
+version = "0.1.0"
+authors = ["Tiffany Bennett <tiffnixen@gmail.com>"]
+edition = "2018"
+
+[lib]
+proc-macro = true
+
+[dependencies]
+syn = "1"
+quote = "1"
+
+[dev-dependencies]
+is-same = { path = "../is-same" }

@@ -1,0 +1,5 @@
+[package]
+name = "is-same"
+version = "0.1.0"
+authors = ["Tiffany Bennett <tiffnixen@gmail.com>"]
+edition = "2018"
