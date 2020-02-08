@@ -1,10 +1,38 @@
+//! The `is-same` crate provides an IsSame trait which allows you to
+//! check if a value has changed from a previous version. This differs
+//! from PartialEq in two important ways:
+//! - Comparing NaNs with PartialEq will return false. IsSame will
+//!   return true if they have identical bit patterns.
+//! - PartialEq does not assume two objects with referential equality
+//!   are the same. IsSame is implemented for Rc<T> ando ther common
+//!   pointers.
+//!
+//! The `is-same-derive` crate can be used to derive IsSame for your
+//! structs the same way as PartialEq:
+//! ```rs
+//! use is_same_derive::IsSame;
+//!
+//! #[derive(IsSame)]
+//! struct MyStruct {
+//!     count: usize,
+//!     ch: char,
+//!     text: String,
+//! }
+//! ```
+
+#![forbid(missing_docs)]
+#![deny(clippy::all)]
+
 use std::collections::{BTreeMap, BTreeSet};
 use std::rc::Rc;
 use std::sync::Arc;
 
+/// A trait for comparing two values to see if they are the same.
 pub trait IsSame {
+    /// Returns whether two objects are the same.
     fn is_same(&self, other: &Self) -> bool;
 
+    /// Equivalent to `!self.is_same(other)`.
     fn is_not_same(&self, other: &Self) -> bool {
         !self.is_same(other)
     }
