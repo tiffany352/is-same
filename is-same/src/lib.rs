@@ -1,14 +1,18 @@
-//! The `is-same` crate provides an IsSame trait which allows you to
-//! check if a value has changed from a previous version. This differs
-//! from PartialEq in two important ways:
-//! - Comparing NaNs with PartialEq will return false. IsSame will
-//!   return true if they have identical bit patterns.
-//! - PartialEq does not assume two objects with referential equality
-//!   are the same. IsSame is implemented for Rc<T> ando ther common
-//!   pointers.
+//! This crate provides the IsSame trait, which is specifically for
+//! diffing immutable data that has been transformed. The trait differs
+//! from PartialEq in some important ways:
 //!
-//! The `is-same-derive` crate can be used to derive IsSame for your
-//! structs the same way as PartialEq:
+//! - Floating point values are compared by their bit patterns,
+//!   preventing NaN values from making a data structure permanently
+//!   compare as not equal to itself. This also lets you detect a value
+//!   changing from `-0.0` to `0.0`.
+//! - Referential equality is used to make comparisons more efficient.
+//!   The library assumes that the contents of `Rc<T>` and `Arc<T>` are
+//!   immutable and can't change, so they only need to be compared by
+//!   their pointers.
+//!
+//! There is also a `is-same-derive` crate which can automatically
+//! derive an IsSame implementation for your structs:
 //! ```rs
 //! use is_same_derive::IsSame;
 //!
@@ -30,12 +34,12 @@ use std::path::{Path, PathBuf};
 use std::rc::Rc;
 use std::sync::Arc;
 
-/// A trait for comparing two values to see if they are the same.
+/// Compares two versions of a piece of data to see if it has changed.
 pub trait IsSame<Rhs = Self>
 where
     Rhs: ?Sized,
 {
-    /// Returns whether two objects are the same.
+    /// Returns true if the two values are identical.
     fn is_same(&self, other: &Rhs) -> bool;
 
     /// Equivalent to `!self.is_same(other)`.

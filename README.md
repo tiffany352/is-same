@@ -5,13 +5,28 @@
 ![build](https://github.com/tiffany352/is-same/workflows/build/badge.svg)
 [![Coverage Status](https://img.shields.io/codecov/c/github/tiffany352/is-same)](https://codecov.io/gh/tiffany352/is-same)
 
-is-same is a crate that exposes one trait: IsSame. The trait is similar
-to PartialEq, but is designed for the usecase of diffing information
-(such as in a tree structure). It has two important advantages:
+This crate provides the IsSame trait, which is specifically for diffing
+immutable data that has been transformed. The trait differs from
+PartialEq in some important ways:
 
-- `NaN.is_same(NaN)` will return true, preventing your data from
-  permanently being marked as different from its previous version.
-- It takes advantage of referential equality for `Rc<T>`.
+- Floating point values are compared by their bit patterns, preventing
+  NaN values from making a data structure permanently compare as not
+  equal to itself. This also lets you detect a value changing from
+  `-0.0` to `0.0`.
+- Referential equality is used to make comparisons more efficient. The
+  library assumes that the contents of `Rc<T>` and `Arc<T>` are
+  immutable and can't change, so they only need to be compared by their
+  pointers.
+
+This trait is implemented out of the box for a lot of standard library
+types, but if any are missing feel free to file an issue or contribute a
+PR. Issues relating to error messages or other usability issues
+(including with the proc macro) are also welcome!
+
+The trait is explicitly not implemented for interior mutability types
+(Cell, RefCell, AtomicUSize, Mutex, etc.), as this would make the
+assumptions based on referential equality unsound. This could be changed
+in the future if it presents a problem.
 
 ## Install
 
