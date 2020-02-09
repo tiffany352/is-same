@@ -216,3 +216,19 @@ fn check_path() {
     assert!(path2.is_same(&path1));
     assert!(path2.is_same(&path2));
 }
+
+#[test]
+fn check_unsized() {
+    use std::fmt::Debug;
+    use std::rc::Rc;
+    use std::sync::Arc;
+
+    let rc: Rc<dyn Debug> = Rc::new(4);
+    assert!(rc.is_same(&rc));
+    let arc: Arc<dyn Debug> = Arc::new(4);
+    assert!(arc.is_same(&arc));
+    let s = "foo";
+    assert!(IsSame::<str>::is_same(s, s));
+    let arr: &[u8] = &[1, 2, 3];
+    assert!(IsSame::<[u8]>::is_same(arr, arr));
+}

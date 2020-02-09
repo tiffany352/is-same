@@ -48,13 +48,19 @@ where
     }
 }
 
-impl<T> IsSame for Rc<T> {
+impl<T> IsSame for Rc<T>
+where
+    T: ?Sized,
+{
     fn is_same(&self, other: &Self) -> bool {
         Rc::ptr_eq(self, other)
     }
 }
 
-impl<T> IsSame for Arc<T> {
+impl<T> IsSame for Arc<T>
+where
+    T: ?Sized,
+{
     fn is_same(&self, other: &Self) -> bool {
         Arc::ptr_eq(self, other)
     }
@@ -63,7 +69,7 @@ impl<T> IsSame for Arc<T> {
 impl<T, Rhs> IsSame<Rhs> for Vec<T>
 where
     T: IsSame,
-    Rhs: AsRef<[T]>,
+    Rhs: AsRef<[T]> + ?Sized,
 {
     fn is_same(&self, other: &Rhs) -> bool {
         let other = other.as_ref();
@@ -209,7 +215,7 @@ where
 
 impl<Rhs> IsSame<Rhs> for PathBuf
 where
-    Rhs: AsRef<Path>,
+    Rhs: AsRef<Path> + ?Sized,
 {
     fn is_same(&self, other: &Rhs) -> bool {
         self == other.as_ref()
@@ -218,7 +224,7 @@ where
 
 impl<Rhs> IsSame<Rhs> for Path
 where
-    Rhs: AsRef<Path>,
+    Rhs: AsRef<Path> + ?Sized,
 {
     fn is_same(&self, other: &Rhs) -> bool {
         self == other.as_ref()
@@ -253,7 +259,6 @@ simple_impl!(());
 simple_impl!(String);
 simple_impl!(str);
 simple_impl!(TypeId);
-simple_impl!(Path);
 
 macro_rules! tuple_impl {
     ($($tyname:ident, $left:ident, $right:ident;)+) => {
