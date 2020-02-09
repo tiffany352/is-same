@@ -1,6 +1,6 @@
 [package]
 name = "is-same"
-version = "0.2.0"
+version = "0.2.1"
 authors = ["Tiffany Bennett <tiffnixen@gmail.com>"]
 edition = "2018"
 description = "A trait for comparing object equality."

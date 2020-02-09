@@ -2,13 +2,13 @@
 # It is not intended for manual editing.
 [[package]]
 name = "is-same"
-version = "0.2.0"
+version = "0.2.1"
 
 [[package]]
 name = "is-same-derive"
 version = "0.1.1"
 dependencies = [
- "is-same 0.2.0",
+ "is-same 0.2.1",
  "quote 1.0.2 (registry+https://github.com/rust-lang/crates.io-index)",
  "syn 1.0.14 (registry+https://github.com/rust-lang/crates.io-index)",
 ]
