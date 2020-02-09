@@ -1,6 +1,6 @@
 [package]
 name = "is-same-derive"
-version = "0.1.0"
+version = "0.1.1"
 authors = ["Tiffany Bennett <tiffnixen@gmail.com>"]
 edition = "2018"
 description = "Derive proc macro for the is-same crate"
