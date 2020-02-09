@@ -5,6 +5,7 @@ use quote::quote;
 use syn::Data;
 use syn::DeriveInput;
 use syn::Fields;
+use syn::Index;
 
 #[proc_macro_derive(IsSame)]
 pub fn derive_is_same(input: TokenStream) -> TokenStream {
@@ -26,6 +27,7 @@ pub fn derive_is_same(input: TokenStream) -> TokenStream {
             }
             Fields::Unnamed(fields) => {
                 let fields = fields.unnamed.iter().enumerate().map(|(index, _field)| {
+                    let index = Index::from(index);
                     quote! {
                         ::is_same::IsSame::is_same(&self.#index, &other.#index)
                     }
